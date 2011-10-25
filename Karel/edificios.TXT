@@ -1,0 +1,245 @@
+class program {
+
+define turnright(){
+    iterate(3)
+        turnleft();
+}
+
+define safe(){
+    if(frontIsClear)
+        move();
+}
+
+define north(){
+    while(notFacingNorth)
+        turnleft();
+}
+
+define east(){
+    while(notFacingEast)
+        turnleft();
+}
+
+define west(){
+    while(notFacingWest)
+        turnleft();
+}
+
+define south(){
+    while(notFacingSouth)
+        turnleft();
+}
+
+define bump(){
+    while(frontIsClear)
+        move();
+}
+
+define bumpToBeeper(){
+     while(notNextToABeeper && frontIsClear)
+        move();
+}
+
+define putBeepers(n){
+    iterate(n)
+        putbeeper();
+}
+
+define turn(){
+    iterate(2)
+        turnleft();
+}
+
+define assignValues(n){
+    putBeepers(n);
+    if(frontIsClear){
+        move();
+        assignValues(succ(n));
+    }
+
+}
+
+define countDamage(){
+    south();
+    bumpToBeeper();
+    if(nextToABeeper){
+        assignValues(0);
+    }
+    north();
+    bump();
+    west();
+}
+
+define countOne(n){
+    if(nextToABeeper){
+        pickbeeper();
+        countOne(succ(n));
+        putbeeper();
+    } else {
+        bump();
+        putBeepers(n);
+        south();
+        bump();
+        turn();
+        while(nextToABeeper && frontIsClear){
+            move();
+        }
+    }
+}
+
+define countTwo(n){
+    if(nextToABeeper){
+        pickbeeper();
+        countTwo(succ(n));
+        putbeeper();
+    } else {
+        bump();
+        west();
+        move();
+        putBeepers(n);
+        east();
+        move();
+        south();
+        bump();
+        turn();
+        while(nextToABeeper && frontIsClear){
+            move();
+        }
+    }
+}
+
+
+define countThree(n){
+    if(nextToABeeper){
+        pickbeeper();
+        countThree(succ(n));
+        putbeeper();
+    } else {
+        bump();
+        east();
+        move();
+        putBeepers(n);
+        west();
+        move();
+        south();
+        bump();
+        turn();
+        while(nextToABeeper && frontIsClear){
+            move();
+        }
+    }
+}
+
+define countTotal(){
+   south();
+   bumpToBeeper();
+   safe();
+   north();
+   countOne(0);
+   east();
+   if(frontIsClear){
+       move();
+       north();
+       countTwo(0);
+       west();
+       move();
+   }
+   west();
+   if(frontIsClear){
+       move();
+       north();
+       countThree(0);
+       east();
+       move();
+   }
+   north();
+   bump();
+   east();
+}
+
+define shave(n){
+    if(iszero(n) && facingSouth){
+        west();
+        bump();
+        turn();
+        while(frontIsClear){
+        move();
+        if(nextToABeeper){
+            pickbeeper();
+            if(nextToABeeper){
+                putbeeper();
+                bump();
+                shave(0);
+            }
+            putbeeper();
+        }
+        }
+        turn();
+        bumpToBeeper();
+        if(nextToABeeper){
+            turnoff();
+        } else {
+            east();
+            bump();
+            turnoff();
+        }
+    }
+    west();
+    if(nextToABeeper){
+        pickbeeper();
+    }
+    while(frontIsClear){
+        move();
+        if(nextToABeeper){
+            pickbeeper();
+        }
+    }
+    east();
+    if(nextToABeeper){
+        pickbeeper();  
+        if(nextToABeeper){
+            putbeeper();
+            bump();
+            shave(succ(n));
+        }
+        putbeeper();
+    }
+    while(frontIsClear){
+        move();
+        if(nextToABeeper){
+            pickbeeper();
+            if(nextToABeeper){
+                putbeeper();
+                bump();
+                shave(succ(n));
+            }
+            putbeeper();
+        }
+    }
+    west();
+    bumpToBeeper();
+    putBeepers(succ(n));
+    turnoff();
+}
+
+program() {
+    east();
+    bump();
+    west();
+    countDamage();
+    while(frontIsClear){
+        move();
+        countDamage();
+    }
+    east();
+    countTotal();
+    while(frontIsClear){
+        move();
+        countTotal();
+    }
+    south();
+    shave(0);
+    turnoff();
+}
+
+}

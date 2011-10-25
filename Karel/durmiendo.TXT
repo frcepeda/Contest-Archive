@@ -1,0 +1,171 @@
+class program {
+
+define turnright(){
+    iterate(3)
+        turnleft();
+}
+
+define safe(){
+    if(frontIsClear)
+        move();
+}
+
+define north(){
+    while(notFacingNorth)
+        turnleft();
+}
+
+define east(){
+    while(notFacingEast)
+        turnleft();
+}
+
+define west(){
+    while(notFacingWest)
+        turnleft();
+}
+
+define south(){
+    while(notFacingSouth)
+        turnleft();
+}
+
+define bump(){
+    while(frontIsClear)
+        move();
+}
+
+define bumpToBeeper(){
+     while(notNextToABeeper && frontIsClear)
+        move();
+}
+
+define putBeepers(n){
+    iterate(n)
+        putbeeper();
+}
+
+define dumpBeepers(){
+    while(anyBeepersInBeeperBag)
+        putbeeper();
+}
+
+define turn(){
+    iterate(2)
+        turnleft();
+}
+
+define back(){
+    turn();
+    safe();
+    turn();
+}
+
+define dump(){
+    if(facingSouth){
+        if(frontIsClear){
+            safe();
+            dump();
+            safe();
+        } else {
+            west();
+            dump();
+            north();
+        }
+    } else if(facingWest){
+        if(frontIsClear){
+            safe();
+            dump();
+            safe();
+        } else {
+            dumpBeepers();
+            east();
+        }
+    }
+}
+
+define removeBeep(n){
+    if(notFacingNorth){
+        turnright();
+        removeBeep(succ(n));
+    } else {
+        south();
+        remove();
+        iterate(n)
+            turnleft();
+    }
+}
+
+define remove(){
+    if(facingSouth){
+        if(frontIsClear){
+            safe();
+            remove();
+            safe();
+        } else {
+            west();
+            remove();
+            north();
+        }
+    } else if(facingWest){
+        if(frontIsClear){
+            safe();
+            remove();
+            safe();
+        } else {
+            pickbeeper();
+            east();
+        }
+    }
+}
+
+define search(){
+    if(nextToABeeper){
+        pickbeeper();
+        if(nextToABeeper){
+            pickbeeper();
+            if(nextToABeeper){
+                putbeeper();
+                putbeeper();
+                return();
+            }
+            putbeeper();
+            removeBeep(0);
+            search();
+        } else {
+            if(frontIsClear){
+                safe();
+                search();
+            }
+            turnleft();
+            if(frontIsClear){
+                safe();
+                search();
+            }
+            turnleft();
+            if(frontIsClear){
+                safe();
+                search();
+            }
+            turnleft();
+            if(frontIsClear){
+                safe();
+                search();
+            }
+            turnleft();
+            back();
+       }
+    } else {
+        back();
+    }
+}
+
+program() {
+    south();
+    dump();
+    search();
+
+    turnoff();
+}
+
+}

@@ -1,0 +1,71 @@
+class program {
+
+define turnright(){
+    iterate(3)
+        turnleft();
+}
+
+define safe(){
+    if(frontIsClear)
+        move();
+}
+
+define north(){
+    while(notFacingNorth)
+        turnleft();
+}
+
+define east(){
+    while(notFacingEast)
+        turnleft();
+}
+
+define west(){
+    while(notFacingWest)
+        turnleft();
+}
+
+define south(){
+    while(notFacingSouth)
+        turnleft();
+}
+
+define bump(){
+    while(frontIsClear)
+        move();
+}
+
+define bumpToBeeper(){
+     while(notNextToABeeper && frontIsClear)
+        move();
+}
+
+define putBeepers(n){
+    iterate(n)
+        putbeeper();
+}
+
+define dumpBeepers(){
+    while(anyBeepersInBeeperBag)
+        putbeeper();
+}
+
+define turn(){
+    iterate(2)
+        turnleft();
+}
+
+define back(){
+    turn();
+    move();
+    turn();
+}
+
+program() {
+    while(nextToABeeper)
+        pickbeeper();
+    putBeepers(16);
+    turnoff();
+}
+
+}
