@@ -51,7 +51,7 @@ int visited[POINTCOUNT];
 // Change these macros
 #define STRUCTTYPE Step
 #define MEMBERNAME time
-#define MAXQUEUESIZE POINTCOUNT*POINTCOUNT
+#define MAXHEAPSIZE POINTCOUNT*POINTCOUNT
 #define GREATESTFIRST 0 // 1:True, 0:False
 // Don't change anything below
 
@@ -61,7 +61,6 @@ int visited[POINTCOUNT];
 #define parent(a) ((a-1)/2)
 #define childA(a) (a*2+1)
 #define childB(a) (a*2+2)
-#define swap(a,b) STRUCTTYPE _temp = a; a = b; b = _temp
 
 #if GREATESTFIRST == 1
     #define COMPARISONOP >
@@ -69,45 +68,38 @@ int visited[POINTCOUNT];
     #define COMPARISONOP <
 #endif
 
-STRUCTTYPE _queue[MAXQUEUESIZE];
+STRUCTTYPE _heap[MAXHEAPSIZE];
 int _qptr;
-
 void push(STRUCTTYPE s);
 void push(STRUCTTYPE s){
-    int curr = _qptr;
-    _queue[_qptr++] = s;
+    int curr = _qptr++;
     while (curr) {
-        if (_queue[curr].MEMBERNAME COMPARISONOP _queue[parent(curr)].MEMBERNAME) {
-            swap(_queue[curr], _queue[parent(curr)]);
+        if (s.MEMBERNAME COMPARISONOP _heap[parent(curr)].MEMBERNAME) {
+            _heap[curr] = _heap[parent(curr)];
             curr = parent(curr);
-        } else {
+        } else
             break;
-        }
     }
+    _heap[curr] = s;
 }
-
 STRUCTTYPE pop(void);
 STRUCTTYPE pop(void){
-    STRUCTTYPE ret = _queue[0];
+    STRUCTTYPE ret = _heap[0];
+    STRUCTTYPE temp = _heap[--_qptr];
     int curr = 0;
-    --_qptr;
-    swap(_queue[0], _queue[_qptr]);
     while (childA(curr) < _qptr || childB(curr) < _qptr) {
         int swapchild;
-        if (childA(curr) < _qptr && childB(curr) < _qptr) {
-            swapchild = _queue[childA(curr)].MEMBERNAME COMPARISONOP _queue[childB(curr)].MEMBERNAME ? childA(curr) : childB(curr);
-        } else if (childA(curr) < _qptr){
+        if (_heap[childA(curr)].MEMBERNAME COMPARISONOP _heap[childB(curr)].MEMBERNAME || childB(curr) >= _qptr)
             swapchild = childA(curr);
-        } else {
+        else (childA(curr) < _qptr)
             swapchild = childB(curr);
-        }
-        if (_queue[swapchild].MEMBERNAME COMPARISONOP _queue[curr].MEMBERNAME) {
-            swap(_queue[swapchild], _queue[curr]);
+        if (_heap[swapchild].MEMBERNAME COMPARISONOP temp.MEMBERNAME) {
+            _heap[curr] = _heap[swapchild];
             curr = swapchild;
-        } else {
+        } else
             break;
-        }
     }
+    _heap[curr] = temp;
     return ret;
 }
 
