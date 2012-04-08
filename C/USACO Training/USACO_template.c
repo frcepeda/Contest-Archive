@@ -14,6 +14,7 @@
 	#define getLine(buf) fgets(buf, sizeof(buf), in);
 	#define openFiles() in = fopen("TASKNAME.in", "r"); out = fopen("TASKNAME.out", "w")
 	#define getchar() fgetc(in)
+	#define putchar(c) fputc(c, out)
 #else
 	#define read(...) scanf(__VA_ARGS__)
 	#define print(...) printf(__VA_ARGS__)
