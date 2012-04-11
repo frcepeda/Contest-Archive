@@ -56,7 +56,7 @@ void generatePalindromes(int start, int end){
 		return;
 	}
 
-	for (i = start ? 0 : 1; i < 10; i++){ // if start > 0, start outputting by 1
+	for (i = start ? 0 : 1; i < 10; i++){ // palindromes can't start with the digit 0.
 		palindrome[start] = palindrome[end] = i;
 		generatePalindromes(start+1, end-1);
 	}
