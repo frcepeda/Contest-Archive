@@ -94,7 +94,7 @@ node *pop(void){
 	return queue[qs++];
 }
 
-void constructAhoCorasik(void){
+void constructAhoCorasick(void){
 	int i;
 
 	root->fall = root;
@@ -175,7 +175,7 @@ int main(void){
 		addString(tileString);
 	}
 
-	constructAhoCorasik();
+	constructAhoCorasick();
 
 	searchInString(searchString);
 
