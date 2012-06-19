@@ -36,9 +36,15 @@ static unsigned long long int decodeBits(int amount){
 
 static int parent[MAXCITIES];
 
-static int getCase(void){
+static int getCase(bool flush){
 	static int buffer = 0;
 	static int remaining = -1;
+
+	if (flush){
+		remaining = -1;
+		return -10;
+	}
+
 	if (remaining <= 0){
 		buffer = decodeBits(8);
 		remaining = MAXPERBYTE;
@@ -105,8 +111,9 @@ void decode(int nv, int nh) {
 
 	for (i = 0; i < nh; i++){
 		for (j = 0; j < nv; j++){
-			cases[i][j] = getCase();
+			cases[i][j] = getCase(false);
 		}
+		getCase(true);
 	}
 
 	for (i = 1; i < nv; i++){
