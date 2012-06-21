@@ -37,7 +37,7 @@ static unsigned long long int decodeBits(int amount){
 static int parent[MAXCITIES];
 
 static int getCase(bool flush){
-	static int buffer = 0;
+	static unsigned char buffer = 0;
 	static int remaining = -1;
 
 	if (flush){

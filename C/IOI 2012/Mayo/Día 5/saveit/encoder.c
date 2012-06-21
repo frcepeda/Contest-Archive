@@ -113,7 +113,7 @@ void encode(int nv, int nh, int ne, int *v1, int *v2){
 
 	for (i = 0; i < nh; i++){
 		for (j = 0; j < nv; j += k){
-			int buffer = 0;
+			unsigned char buffer = 0;
 			for (k = 0; k < MAXPERBYTE && k + j < nv; k++){
 				buffer += threeTothe[k] * cases[i][j+k];
 			}
