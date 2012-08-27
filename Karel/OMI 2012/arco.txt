@@ -1,0 +1,115 @@
+class program {
+
+void north(){
+    while (notFacingNorth)
+        turnleft();         
+}
+
+void east(){
+    while (notFacingEast)
+        turnleft();
+}
+
+void south(){
+    while (notFacingSouth)
+        turnleft();
+}
+
+void turnright(){
+    iterate (3)
+        turnleft();
+}
+
+void turn(){
+    iterate (2)
+        turnleft();
+}
+
+void back(){
+    turn();
+    move();
+    turn();
+}
+
+void bumpToBeeper(){
+    while (frontIsClear){
+        move();
+        if (nextToABeeper){
+            back();
+            return();
+        }
+    }
+}
+
+void grabLine(){
+    while (frontIsClear){
+        move();
+        if (nextToABeeper){
+            pickbeeper();
+            if (notNextToABeeper){
+                putbeeper();
+                back();
+                return();
+            }
+        }
+    }
+}
+
+void grabArrows(){
+    iterate (4){
+        grabLine();
+        turnright();
+    }
+}
+
+void nextLine(){
+    move();
+    move();
+    south();
+    move();
+    move();
+    east();
+}
+
+void checkIfCenter(){
+    iterate (4){
+        move();
+        if (nextToABeeper){
+            pickbeeper();
+            if (nextToABeeper){
+                putbeeper();
+                back();
+                east();
+                return();
+            }
+            putbeeper();
+            back();
+            turnleft();
+        } else {
+            back();
+            east();
+            return();
+        }
+    }
+    if (nextToABeeper){
+        while (anyBeepersInBeeperBag)
+            putbeeper();
+        pickbeeper();
+    } else {
+        while (anyBeepersInBeeperBag)
+            putbeeper();
+    }
+    turnoff();
+}
+
+program() {
+    checkIfCenter();
+    while (iszero(0)){
+        grabArrows();
+        nextLine();
+        checkIfCenter();
+    }
+    turnoff();
+}
+
+}

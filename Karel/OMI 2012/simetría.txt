@@ -1,0 +1,92 @@
+class program {
+
+void turnright(){
+    iterate (3)
+        turnleft();
+}
+
+void north(){
+    while (notFacingNorth)
+        turnleft();
+}
+
+void south(){
+    while (notFacingSouth)
+        turnleft();
+}
+
+void checkifsquare(){
+    iterate (4){
+        if (frontIsClear){
+            return();
+        }
+        turnleft();
+    }
+    north();
+    turnoff();
+}
+
+void safe(){
+    if (frontIsClear){
+        move();
+    } else {
+        lolnope();
+    }        
+}
+
+void lolnope(){
+    south();
+    turnoff();
+}
+
+void followtrail(n){
+    if (!iszero(n) && nextToABeeper && rightIsBlocked){
+        if (frontIsBlocked)
+            iterate (2)
+                turnleft();
+        return();
+    } else {
+        if (frontIsBlocked){
+            turnleft();
+            followtrail(succ(n));
+            turnleft();
+        } else {
+            move();
+            if (rightIsBlocked){
+                followtrail(succ(n));
+                safe();
+            } else {
+                turnright();
+                move();
+                if (rightIsBlocked){
+                    followtrail(succ(n));
+                    safe();
+                    turnright();
+                    safe();
+                } else {
+                    turnright();
+                    move();
+                    followtrail(succ(n));
+                    safe();
+                    turnright();
+                    safe();
+                    turnright();
+                    safe();
+                }
+            }
+        }
+    }
+}
+
+program() {
+    checkifsquare();
+    north();
+    putbeeper();
+    while (rightIsClear)
+        turnleft();
+    followtrail(0);
+    north();
+    turnoff();
+}
+
+}

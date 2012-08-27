@@ -1,0 +1,396 @@
+class program {
+
+void step(n){
+    iterate (n)
+        move();
+}
+
+void west(){
+    while (notFacingWest)
+        turnleft();
+}
+
+void north(){
+    while (notFacingNorth)
+        turnleft();
+}
+
+void east(){
+    while (notFacingEast)
+        turnleft();
+}
+
+void south(){
+    while (notFacingSouth)
+        turnleft();
+}
+
+void turnright(){
+    iterate (3)
+        turnleft();
+}
+
+void bump(){
+    while (frontIsClear)
+        move();
+}
+
+void turn(){
+    iterate (2)
+        turnleft();
+}
+
+void back(){
+    turn();
+    move();
+    turn();
+}
+
+void bumpToBeeper(){
+    while (frontIsClear){
+        move();
+        if (nextToABeeper){
+            back();
+            return();
+        }
+    }
+}
+
+void followBeepers(){
+    while (nextToABeeper){
+        move();
+    }
+    back();
+}
+
+void countRight(n){
+    if (notNextToABeeper && frontIsClear){
+        move();
+        countRight(succ(n));
+        if (facingWest)
+            move();
+    } else if (nextToABeeper) {
+        west();
+        bump();
+        north();
+        move();
+        iterate (n)
+            putbeeper();
+        move();
+        putbeeper();
+    } else
+        turn();
+}
+
+void countLeft(n){
+    if (notNextToABeeper && frontIsClear){
+        move();
+        countLeft(succ(n));
+    } else if (nextToABeeper) {
+        west();
+        bump();
+        north();
+        move();
+        iterate (n)
+            putbeeper();
+    }
+}
+
+void countHorizontal(){
+    east();
+    countRight(0);
+    if (facingWest){
+        countLeft(0);
+    }
+    south();
+    bump();
+    north();
+}
+
+void countUp(n){
+    while (frontIsClear && notNextToABeeper)
+        move();
+    if (nextToABeeper){
+        south();
+        bump();
+        countHorizontal();
+        iterate (n)
+            putbeeper();
+    } else {
+        west();
+        bump();
+        north();
+        move();
+        east();
+        countUp(succ(n));
+    }
+}
+
+void copyup(n){
+    if (nextToABeeper){
+        pickbeeper();
+        copyup(succ(n));
+        putbeeper();
+    } else {
+        step(3);
+        iterate (n)
+            putbeeper();
+        turn();
+        step(3);
+        turn();
+    }
+}
+
+void copyNumbers(){
+    copyup(0);
+    move();
+    copyup(0);
+}
+
+void compare2(n){
+    if (nextToABeeper && !iszero(n)){
+        pickbeeper();
+        compare2(pred(n));
+        putbeeper();
+    } else if (iszero(n) && nextToABeeper){
+        return();
+    } else {
+        turn();
+        move();
+    }
+}
+
+void compare(n){
+    if (nextToABeeper){
+        pickbeeper();
+        compare(succ(n));
+        putbeeper();
+    } else {
+        move();
+        compare2(n);
+        turn();
+        move();
+    }
+}
+
+void swapIfLarger(n){
+    compare(0);
+    south();
+    bump();
+    north();
+    step(3);
+}
+
+void actuallysubtract(n){
+    if (iszero(n))
+        return();
+    else if (nextToABeeper) {
+        pickbeeper();
+        actuallysubtract(pred(n));
+        if (notFacingNorth)
+            putbeeper();
+    } else {
+        east();
+    }
+}
+
+void subtract(n){
+    if (nextToABeeper){
+        pickbeeper();
+        subtract(succ(n));
+    } else {
+        iterate (n)
+            putbeeper();
+        move();
+        while (nextToABeeper && facingNorth){
+            actuallysubtract(n);
+        }
+    }
+}
+
+void checkifzero(){
+    if (nextToABeeper){
+        south();
+        move();
+        north();
+    } else {
+        south();
+        move();
+        east();
+    }
+}
+
+void gcd(){
+    copyNumbers();
+    iterate (2)
+        move();
+    north();
+    while (facingNorth){
+        swapIfLarger(0);
+        subtract(0);
+        checkifzero();
+    }
+}
+
+void divide(n){
+    if (nextToABeeper){
+        iterate (n)
+            pickbeeper();
+        divide(n);
+        putbeeper();
+    }
+}
+
+void countToDivide(n){
+    if (nextToABeeper){
+        pickbeeper();
+        countToDivide(succ(n));
+    } else {
+        south();
+        bump();
+        divide(n);
+        north();
+        move();
+        divide(n);
+    }
+}
+
+void countHeight(n){
+    if (nextToABeeper){
+        move();
+        countHeight(succ(n));
+    } else {
+        south();
+        bump();
+        west();
+        bump();
+        north();
+        step(3);
+        while (nextToABeeper)
+            pickbeeper();
+        iterate (n)
+            putbeeper();
+    }
+}
+
+void countToDivideTimes(n){
+    if (nextToABeeper){
+        pickbeeper();              
+        countToDivideTimes(succ(n));
+    } else {
+        step(3);
+        pickbeeper();
+        divide(n);
+    }
+}
+
+void multiply(n){
+    if (nextToABeeper){
+        pickbeeper();
+        multiply(n);
+        iterate(n)
+            putbeeper();
+    }
+}
+
+void countToMultiply(n){
+    if (nextToABeeper){
+        pickbeeper();
+        countToMultiply(succ(n));
+    } else {
+        south();
+        step(2);
+        multiply(n);
+    }
+}
+
+void draw(n){
+    iterate(n){
+        move();
+        putbeeper();
+    }
+}
+
+void drawRight(n){
+    south();
+    bump();
+    east();
+    bumpToBeeper();
+    move();
+    draw(n);
+}
+
+void drawLeft(n){
+    south();
+    bump();
+    east();
+    bumpToBeeper();
+    move();
+    west();
+    draw(n);
+}
+
+void countToDrawShadow(n){
+    if (nextToABeeper){
+        pickbeeper();
+        countToDrawShadow(succ(n));
+    } else {
+        north();
+        move();
+        if (nextToABeeper){
+            cleanup();
+            drawRight(n);
+        } else {
+            cleanup();
+            drawLeft(n);
+        }
+    }
+}
+
+void cleanup(){
+    west();
+    bump();
+    north();
+    while (iszero(0)){
+        while (nextToABeeper){
+            pickbeeper();
+        }
+        if (frontIsBlocked){
+            return();
+        }
+        move();
+    }
+}
+
+program() {
+    if (nextToABeeper)
+        turnoff();      (*// if there's a cactus in column 1, its shadow is 0*)
+    east();
+    bumpToBeeper();
+    move();
+    north();
+    followBeepers();
+    move();
+    west();
+    bump();
+    east();
+    countUp(1);
+    gcd();
+    countToDivide(0);
+    south();
+    bump();
+    east();
+    bumpToBeeper();
+    move();
+    north();
+    countHeight(0);
+    south();
+    bump();
+    north();
+    countToDivideTimes(0);
+    countToMultiply(0);
+    countToDrawShadow(0);
+    turnoff();
+}
+
+}

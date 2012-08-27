@@ -1,0 +1,277 @@
+class program {
+
+void west(){
+    while (notFacingWest)
+        turnleft();
+}
+
+void north(){
+    while (notFacingNorth)
+        turnleft();
+}
+
+void east(){
+    while (notFacingEast)
+        turnleft();
+}
+
+void south(){
+    while (notFacingSouth)
+        turnleft();
+}
+
+void turnright(){
+    iterate (3)
+        turnleft();
+}
+
+void turn(){
+    iterate (2)
+        turnleft();
+}
+
+void back(){
+    turn();
+    move();
+    turn();
+}
+
+void bump(){
+    while (frontIsClear)
+        move();
+}
+
+void bumpToBeeper(){
+    while (frontIsClear){
+        move();
+        if (nextToABeeper){
+            back();
+            return();
+        }
+    }
+}
+
+void checkForDivisor(n){
+    if (iszero(pred(n))){
+        north();
+        return();
+    }
+    while (iszero(0)){
+        iterate (pred(n)){
+            if (frontIsClear && nextToABeeper){
+                move();
+            } else {
+                west();
+                bump();
+                east();
+                return();
+            }
+        }
+        if (frontIsBlocked){
+            west();
+            bump();
+            north();
+            return();
+        }
+        move();
+        if (notNextToABeeper){
+            west();
+            move();
+            if (nextToABeeper){
+                bump();
+                north();
+                return();
+            } else {
+                bump();
+                east();
+                return();
+            }
+        }
+    }
+}
+
+void countTimes(n){
+    if (frontIsClear && nextToABeeper){
+        iterate (pred(n))
+            move();
+        if (frontIsClear)
+            move();
+        countTimes(n);
+        putbeeper();
+    } else {
+        west();
+        bump();
+        north();
+        move();
+        move();
+        while (nextToABeeper)
+            pickbeeper();
+    }
+}
+
+void fillWithN(n){
+    while (iszero(0)){
+        while (nextToABeeper)
+            pickbeeper();
+        iterate (n)
+            putbeeper();
+        if (frontIsBlocked)
+            return();
+        move();
+    }
+}
+
+void compare2(n){
+    if (nextToABeeper && !iszero(n)){
+        pickbeeper();
+        compare2(pred(n));
+        putbeeper();
+    } else if (iszero(n) && notNextToABeeper) {
+        east();
+    } else {
+        north();
+    }
+}
+
+void moveme(n){
+    if (nextToABeeper){
+        pickbeeper();
+        moveme(succ(n));
+    } else {
+        iterate (n)
+            putbeeper();
+        south();
+        bump();
+        east();
+        iterate (n){
+            if (frontIsClear)
+                move();
+            else {
+                west();
+                return();
+            }
+        }
+    }
+}
+
+void movemeback(n){
+    if (nextToABeeper){
+        pickbeeper();
+        movemeback(succ(n));
+    } else {
+        iterate (n)
+            putbeeper();
+        south();
+        bump();
+        west();
+        iterate (n){
+            move();
+        }
+    }
+}
+
+void compare(n){
+    if (nextToABeeper){
+        pickbeeper();
+        compare(succ(n));
+    } else {
+        iterate (n)
+            putbeeper();
+        north();
+        move();
+        moveme(0);
+        if (facingWest || notNextToABeeper){
+            west();
+            return();
+        }
+        compare2(n);
+        if (facingNorth){
+            move();
+            movemeback(0);
+            north();
+        } else {
+            north();
+            move();
+            movemeback(0);
+            east();
+        }
+    }
+}
+
+void cleanTopRow(){
+    east();
+    bump();
+    south();
+    bump();
+    north();
+    move();
+    west();
+    while (iszero(0)){
+        while (nextToABeeper)
+            pickbeeper();
+        if (frontIsBlocked)
+            return();
+        move();
+    }
+}
+
+void deleteUpTo(n){
+    south();
+    move();
+    east();
+    iterate (pred(n))
+        move();
+    if (frontIsClear){
+        move();
+        while (iszero(0)){
+            while (nextToABeeper)
+                pickbeeper();
+            if (frontIsBlocked)
+                return();
+            move();
+        }
+    }
+}
+
+void try(n){
+    checkForDivisor(n);
+    if (facingNorth){
+        north();
+        move();
+        east();
+        fillWithN(n);
+        south();
+        bump();
+        west();
+        bump();
+        east();
+        while (nextToABeeper && frontIsClear && notFacingWest){
+            compare(0);
+            if (facingNorth){
+                west();
+                bump();
+                east();
+                return();
+            }
+            move();
+        }
+        cleanTopRow();
+        deleteUpTo(n);
+        turnoff();
+    } else {
+        east();
+    }
+}
+
+void start(n){
+    try(n);
+    start(succ(n));
+}
+
+program() {
+    turnright();
+    start(1);
+    turnoff();
+}
+
+}
