@@ -22,14 +22,29 @@ FILE *in, *out;
 
 #define CHLDNUM 4
 #define MAXNODES 4000
+#define MAXSTRINGS 210
 
 typedef struct _node {
 	struct _node *fall, *next, *parent;
+       	struct _linkedlist *match;
 	struct _node *children[CHLDNUM];
 	char c;
 	int len;
 	bool isEnd;
 } node;
+
+typedef struct _linkedlist {
+	struct _linkedlist *next;
+	node *match;
+} linkedlist;
+
+linkedlist matches[MAXSTRINGS];
+int nextMatchString;
+
+linkedlist* lolAllocList(node *match){
+	matches[nextMatchString].match = match;
+	return &matches[nextMatchString++];
+}
 
 node lolAllocMemory[MAXNODES];
 int lolAllocCount;
@@ -59,6 +74,7 @@ node *root;
 
 void _addString(node *n, char *str, int len){
 	if (!*str){
+		n->match = lolAllocList(n);
 		n->isEnd = true;
 		n->len = len;
 		return;
@@ -112,6 +128,11 @@ void buildAhoCorasick(void){
 
 		if (curr->fall == NULL || curr->fall == curr)
 			curr->fall = root;
+
+		if (curr->match)
+			curr->match->next = curr->fall->match;
+		else
+			curr->match = curr->fall->match;
 	}
 }
 
@@ -160,14 +181,13 @@ int main(void){
 		if (curr == NULL)
 			curr = root;
 
-		node *tmp = curr;
+		linkedlist *matches = curr->match;
 
-		while (tmp != root){
-			if (tmp->isEnd){
-				dp[i] |= dp[i - tmp->len];
-			}
-			tmp = tmp->fall;
+		while (matches != NULL){
+			dp[i] |= dp[i - matches->match->len];
+			matches = matches->next;
 		}
+
 		if (dp[i])
 			best = i;
 	}
