@@ -14,8 +14,6 @@
 	#define openFiles()
 #endif
 
-FILE *in, *out;
-
 // USACO upload macros
 
 int main(void){
