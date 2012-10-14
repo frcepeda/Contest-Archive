@@ -9,20 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("castle.in", "r"); out = fopen("castle.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("castle.in", "r", stdin); freopen("castle.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -102,11 +92,11 @@ int main(void){
 
 	int i, j;
 
-	read("%d %d", &width, &height);
+	scanf("%d %d", &width, &height);
 
 	for (j = 0; j < height; j++)
 		for (i = 0; i < width; i++)
-			read("%d", &map[i][j]);
+			scanf("%d", &map[i][j]);
 
 	for (j = 0; j < height; j++){
 		for (i = 0; i < width; i++){
@@ -128,10 +118,10 @@ int main(void){
 		}
 	}
 
-	print("%d\n", nextRoom-1);
-	print("%d\n", largestRoom);
-	print("%d\n", max);
-	print("%d %d %c\n", besty + 1, bestx + 1, bestDir);
+	printf("%d\n", nextRoom-1);
+	printf("%d\n", largestRoom);
+	printf("%d\n", max);
+	printf("%d %d %c\n", besty + 1, bestx + 1, bestDir);
 
 
 	return 0;

@@ -9,20 +9,12 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("beads.in", "r"); out = fopen("beads.out", "w")
+	#define openFiles() freopen("beads.in", "r", stdin); freopen("beads.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
 
-FILE *in, *out;
-
-// USACO upload header
+// USACO upload macros
 
 #define MAXBEADS 350
 
@@ -32,10 +24,10 @@ int beadNum;
 int main(void){
 	int i;
 	openFiles();
-	read("%d", &beadNum);
+	scanf("%d", &beadNum);
 	for (i = 0; i < beadNum; i++){
 		do {
-			read("%c", &beads[i]);
+			scanf("%c", &beads[i]);
 		} while (beads[i] != 'w' && beads[i] != 'b' && beads[i] != 'r');
 		beads[i+beadNum] = beads[i];
 	}
@@ -65,7 +57,7 @@ int main(void){
 		}
 		if (new > max) max = new;
 	}
-	print("%d\n", max);
+	printf("%d\n", max);
 	return 0;
 }
 

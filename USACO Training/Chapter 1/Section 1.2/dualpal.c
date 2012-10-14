@@ -10,18 +10,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("dualpal.in", "r"); out = fopen("dualpal.out", "w")
+	#define openFiles() freopen("dualpal.in", "r", stdin); freopen("dualpal.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -38,7 +30,8 @@ void changeToBase(int num, int base, char *buf){
 int isPalindrome(char *s){
 	int i = 0, j = strlen(s)-1;
 	for (; i <= j; i++, j--)
-		if (s[i] != s[j]) return 0;
+		if (s[i] != s[j])
+			return 0;
 	return 1;
 }
 
@@ -58,7 +51,7 @@ int main(void){
 	openFiles();
 
 	int i, greater;
-	read("%d %d", &i, &greater);
+	scanf("%d %d", &i, &greater);
 
 	while(i){
 		int baseCount = 0, base;
@@ -70,7 +63,7 @@ int main(void){
 				baseCount++;
 				if (baseCount == 2){
 					i--;
-					print("%d\n", greater);
+					printf("%d\n", greater);
 					break;
 				}
 			}

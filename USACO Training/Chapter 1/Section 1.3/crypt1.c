@@ -9,20 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("crypt1.in", "r"); out = fopen("crypt1.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("crypt1.in", "r", stdin); freopen("crypt1.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -33,7 +23,8 @@ int toCheckNum;
 
 int digitCount(int num){
 	const int base = 10;
-	if (!num) return 1;
+	if (!num)
+		return 1;
 	int count = 0;
 	while (num){
 		num /= base;
@@ -69,10 +60,10 @@ int main(void){
 	int i,j,k,l,m;
 	int answer = 0;
 
-	read("%d", &toCheckNum);
+	scanf("%d", &toCheckNum);
 
 	for (i = 0; i < toCheckNum; i++){
-		read("%d", &j);
+		scanf("%d", &j);
 		inSet[j] = 1;
 	}
 
@@ -84,7 +75,7 @@ int main(void){
 						if (try(i,j,k,l,m))
 							answer++;
 
-	print("%d\n", answer);
+	printf("%d\n", answer);
 
 	return 0;
 }

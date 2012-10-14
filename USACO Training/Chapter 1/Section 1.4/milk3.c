@@ -9,20 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("milk3.in", "r"); out = fopen("milk3.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("milk3.in", "r", stdin); freopen("milk3.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -87,7 +77,7 @@ int main(void){
 	openFiles();
 	int i;
 
-	read("%d %d %d", &maxA, &maxB, &maxC);
+	scanf("%d %d %d", &maxA, &maxB, &maxC);
 
 	search(0,0,maxC);
 	
@@ -95,14 +85,14 @@ int main(void){
 	for (i = 0; i < MAXMILK; i++){
 		if (answers[i]){
 			if (before)
-				print(" %d", i);
+				printf(" %d", i);
 			else {
-				print("%d", i);
+				printf("%d", i);
 				before = 1;
 			}
 		}
 	}
-	print("\n");
+	printf("\n");
 
 	return 0;
 }

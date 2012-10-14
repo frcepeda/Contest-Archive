@@ -16,8 +16,6 @@
 	#define openFiles()
 #endif
 
-FILE *in, *out;
-
 // USACO upload macros
 
 #define CHLDNUM 4

@@ -10,20 +10,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("sprime.in", "r"); out = fopen("sprime.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("sprime.in", "r", stdin); freopen("sprime.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -47,7 +37,7 @@ int main(void){
 	openFiles();
 
 	int i, length;
-	read("%d", &length);
+	scanf("%d", &length);
 
 	for (i = 2; i <= length; i++){
 		int j, nextDigit, test;
@@ -68,7 +58,7 @@ int main(void){
 	}
 
 	for (i = 0; i < fromCount; i++)
-		print("%d\n", from[i]);
+		printf("%d\n", from[i]);
 
 	return 0;
 }

@@ -11,20 +11,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("pprime.in", "r"); out = fopen("pprime.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("pprime.in", "r", stdin); freopen("pprime.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -52,7 +42,7 @@ void generatePalindromes(int start, int end){
 			num += palindrome[i];
 		}
 		if (num >= min && num <= max && isPrime(num))
-			print("%d\n", num);
+			printf("%d\n", num);
 		return;
 	}
 
@@ -66,7 +56,7 @@ int main(void){
 	openFiles();
 	int i;
 	
-	read("%d %d", &min, &max);
+	scanf("%d %d", &min, &max);
 
 	for (i = 0; i < log10(max)+1; i++){
 		digitsOfPalindrome = i+1;

@@ -9,20 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("frac1.in", "r"); out = fopen("frac1.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("frac1.in", "r", stdin); freopen("frac1.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -71,7 +61,7 @@ int main(void){
 
 	int n, d, i;
 
-	read("%d", &d);
+	scanf("%d", &d);
 
 	for (; d >= 2; d--)
 		for (n = 1; n <= d; n++)
@@ -81,7 +71,7 @@ int main(void){
 	qsort(fractions, fractionCount, sizeof(fraction), fractCmp);
 
 	for (i = 0; i < fractionCount; i++)
-		print("%d/%d\n", fractions[i].numerator, fractions[i].denominator);
+		printf("%d/%d\n", fractions[i].numerator, fractions[i].denominator);
 
 	return 0;
 }

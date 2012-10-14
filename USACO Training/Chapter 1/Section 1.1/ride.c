@@ -7,6 +7,16 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#define UPLOAD 1
+
+#if UPLOAD
+	#define openFiles() freopen("ride.in", "r", stdin); freopen("ride.out", "w", stdout)
+#else
+	#define openFiles()
+#endif
+
+// USACO upload macros
+
 int value(char *str){
 	int i, a = 1;
 	for (i = 0; isupper(str[i]); i++) {
@@ -17,23 +27,20 @@ int value(char *str){
 }
 
 int main(void){
+	openFiles();
 	char a[50], b[50];
 	int aVal, bVal;
-	FILE *in, *out;
-	in = fopen("ride.in", "r");
-	out = fopen("ride.out", "w");
-	printf("OPENED FILES\n");
-	fgets(a, sizeof(a), in);
-	fgets(b, sizeof(b), in);
-	printf("%s", a);
-	printf("%s", b);
+
+	scanf("%s", a);
+	scanf("%s", b);
+
 	aVal = value(a);
 	bVal = value(b);
-	printf("%d, %d", aVal, bVal);
-	if (aVal == bVal) {
-		fprintf(out, "GO\n");
-	} else {
-		fprintf(out, "STAY\n");
-	}
+
+	if (aVal == bVal)
+		printf("GO\n");
+	else
+		printf("STAY\n");
+
 	return 0;
 }

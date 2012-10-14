@@ -9,20 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("hamming.in", "r"); out = fopen("hamming.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("hamming.in", "r", stdin); freopen("hamming.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -48,7 +38,7 @@ int main(void){
 
 	int length, neededAnswers, minDifference;
 
-	read("%d %d %d", &neededAnswers, &length, &minDifference);
+	scanf("%d %d %d", &neededAnswers, &length, &minDifference);
 	
 	for (i = 0; i < MAXNUM; i++)
 		bitCount[i] = countBits(i);
@@ -69,7 +59,7 @@ int main(void){
 	}
 
 	for (i = 0; i < answerCount; i++)
-		print("%d%s", answers[i], (i+1) % 10 && i != answerCount-1 ? " " : "\n");
+		printf("%d%s", answers[i], (i+1) % 10 && i != answerCount-1 ? " " : "\n");
 
 	return 0;
 }

@@ -14,8 +14,6 @@
 	#define openFiles()
 #endif
 
-FILE *in, *out;
-
 // USACO upload macros
 
 #define MAXNUM 1000

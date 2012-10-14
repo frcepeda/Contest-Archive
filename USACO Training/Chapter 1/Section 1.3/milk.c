@@ -9,18 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("milk.in", "r"); out = fopen("milk.out", "w")
+	#define openFiles() freopen("milk.in", "r", stdin); freopen("milk.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -63,10 +55,10 @@ int main(void){
 	int i, num;
 	int total = 0;
 	
-	read("%d %d", &num, &farmerCount);
+	scanf("%d %d", &num, &farmerCount);
 
 	for (i = 0; i < farmerCount; i++)
-		read("%d %d", &farmers[i].cost, &farmers[i].amount);
+		scanf("%d %d", &farmers[i].cost, &farmers[i].amount);
 
 	qsort(farmers, farmerCount, sizeof(farmer), farmerCmp);
 
@@ -74,7 +66,7 @@ int main(void){
 		total += getMilkUpTo(&num);
 	}
 
-	print("%d\n", total);
+	printf("%d\n", total);
 
 	return 0;
 }

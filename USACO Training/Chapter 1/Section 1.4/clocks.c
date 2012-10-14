@@ -10,20 +10,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("clocks.in", "r"); out = fopen("clocks.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("clocks.in", "r", stdin); freopen("clocks.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -100,7 +90,7 @@ step search(void){
 void reconstruct(step s, short first){
 	if (s.parent == -1) return;
 	reconstruct(queue[s.parent], 0);
-	print("%d%c", s.move, first ? '\n' : ' ');
+	printf("%d%c", s.move, first ? '\n' : ' ');
 }
 
 int main(void){
@@ -108,7 +98,7 @@ int main(void){
 	int i;
 
 	for (i = 0; i < CLOCKNUM; i++){
-		read("%hd", &start.clocks[i]);
+		scanf("%hd", &start.clocks[i]);
 		start.clocks[i] /= 3; // scale the statuses
 		start.clocks[i] %= STATENUM;
 	}

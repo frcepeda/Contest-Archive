@@ -15,8 +15,6 @@
 	#define openFiles()
 #endif
 
-FILE *in, *out;
-
 // USACO upload macros
 
 typedef struct {

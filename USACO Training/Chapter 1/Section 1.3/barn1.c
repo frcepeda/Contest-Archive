@@ -9,18 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("barn1.in", "r"); out = fopen("barn1.out", "w")
+	#define openFiles() freopen("barn1.in", "r", stdin); freopen("barn1.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -45,19 +37,17 @@ int main(void){
 	openFiles();
 	int i, answer;
 
-	read("%d %*d %d", &canPurchase, &stallNum);
+	scanf("%d %*d %d", &canPurchase, &stallNum);
 
-	for (i = 0; i < stallNum; i++){
-		read("%d", &stalls[i]);
-	}
+	for (i = 0; i < stallNum; i++)
+		scanf("%d", &stalls[i]);
 
 	qsort(stalls, stallNum, sizeof(int), intCmp);
 
 	answer = stalls[stallNum-1] - stalls[0] + 1;
 
-	for (i = 1; i < stallNum; i++){
+	for (i = 1; i < stallNum; i++)
 		stalls[i-1] = stalls[i] - stalls[i-1] - 1;
-	}
 
 	int spaceNum = stallNum - 1;
 	qsort(stalls, spaceNum, sizeof(int), intReverseCmp);
@@ -65,10 +55,10 @@ int main(void){
 	canPurchase--;
 	if (canPurchase > spaceNum) canPurchase = spaceNum;
 
-	for (i = 0; i < canPurchase; i++){
+	for (i = 0; i < canPurchase; i++)
 		answer -= stalls[i];
-	}
 
-	print("%d\n", answer);
+	printf("%d\n", answer);
+
 	return 0;
 }

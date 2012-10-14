@@ -10,20 +10,12 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("milk2.in", "r"); out = fopen("milk2.out", "w")
+	#define openFiles() freopen("milk2.in", "r", stdin); freopen("milk2.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
 
-FILE *in, *out;
-
-// USACO upload header
+// USACO upload macros
 
 #define MAXNUM 5000
 
@@ -47,30 +39,44 @@ int main(void){
 	int maxYes = 0, maxNo = 0;
 	int start, end;
 	openFiles();
-	read("%d", &count);
-	for (i = 0; i < count; i++){
-		read("%d %d", &intervals[i].start, &intervals[i].end);
-	}
+
+	scanf("%d", &count);
+	for (i = 0; i < count; i++)
+		scanf("%d %d", &intervals[i].start, &intervals[i].end);
+
 	qsort(intervals, count, sizeof(Interval), intervalCompare);
+
 	lastStart = intervals[0].start;
 	lastEnd = intervals[0].end; 
+
 	for (i = 1; i < count; i++){
 		start = intervals[i].start;
 		end = intervals[i].end;
+
 		if (start > lastStart && end < lastEnd) continue;
+
 		if (start - lastEnd <= 0){
 			lastEnd = end;
 		} else {
 			int tot = lastEnd - lastStart;
-			if (maxYes < tot) maxYes = tot;
+			if (maxYes < tot)
+				maxYes = tot;
+
 			int totNo = start - lastEnd;
-			if (maxNo < totNo) maxNo = totNo;
+			if (maxNo < totNo)
+				maxNo = totNo;
+
 			lastStart = start;
 			lastEnd = end;
 		}
 	}
+
 	int tot = lastEnd - lastStart;
-	if (maxYes < tot) maxYes = tot;
-	print("%d %d\n", maxYes, maxNo);
+
+	if (maxYes < tot)
+		maxYes = tot;
+
+	printf("%d %d\n", maxYes, maxNo);
+
 	return 0;
 }

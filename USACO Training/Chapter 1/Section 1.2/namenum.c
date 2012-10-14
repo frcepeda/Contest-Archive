@@ -10,18 +10,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("namenum.in", "r"); out = fopen("namenum.out", "w")
+	#define openFiles() freopen("namenum.in", "r", stdin); freopen("namenum.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -61,7 +53,7 @@ void checkString(void){
 		int mid = (lo + hi) / 2;
 		int ret = strcmp(string, acceptable[mid]);
 		if (ret == 0){
-			print("%s\n", string);
+			printf("%s\n", string);
 			printedSomething = 1;
 			return;
 		} else if (ret < 0)
@@ -74,7 +66,6 @@ void checkString(void){
 void permute(int index){
 	if (index == length){
 		checkString();
-		printf("%s\n", string);
 		return;
 	} else {
 		int i = 0;
@@ -88,7 +79,7 @@ void permute(int index){
 int main(void){
 	openFiles();
 	long long int i, num;
-	read("%lld", &num);
+	scanf("%lld", &num);
 	for (i = 0; num; i++, length++){
 		sequence[i] = num % 10;
 		num /= 10;
@@ -100,6 +91,7 @@ int main(void){
 	}
 	openDictionary();
 	permute(0);
-	if (!printedSomething) print("NONE\n");
+	if (!printedSomething)
+		printf("NONE\n");
 	return 0;
 }

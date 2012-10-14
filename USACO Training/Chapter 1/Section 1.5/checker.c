@@ -9,20 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("checker.in", "r"); out = fopen("checker.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("checker.in", "r", stdin); freopen("checker.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -57,8 +47,8 @@ void printAnswer(void){
 	qsort(willSort, size, sizeof(pair), pairCmp);
 
 	for (i = 0; i < size; i++)
-		print("%s%d", i ? " " : "", willSort[i].i + 1);
-	print("\n");
+		printf("%s%d", i ? " " : "", willSort[i].i + 1);
+	printf("\n");
 }
 
 int canUse(int row, int column){
@@ -108,14 +98,14 @@ int main(void){
 	openFiles();
 	int i;
 
-	read("%d", &size);
+	scanf("%d", &size);
 
 	if (size < 13)
 		backtrack(1);
 	else
 		trickyTrick();
 
-	print("%d\n", answer);
+	printf("%d\n", answer);
 
 	return 0;
 }

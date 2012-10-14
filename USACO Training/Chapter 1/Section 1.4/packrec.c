@@ -11,20 +11,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("packrec.in", "r"); out = fopen("packrec.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("packrec.in", "r", stdin); freopen("packrec.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -184,7 +174,7 @@ int main(void){
 	int i;
 
 	for (i = 0; i < RECTNUM; i++)
-		read("%d %d", &rectangles[i].x, &rectangles[i].y);
+		scanf("%d %d", &rectangles[i].x, &rectangles[i].y);
 
 	while (nextPermutation()){
 		try(rectangles[permutation[0]],
@@ -195,9 +185,9 @@ int main(void){
 
 	qsort(best, next, sizeof(rectangle), rectCmp);
 
-	print("%d\n", minArea);
+	printf("%d\n", minArea);
 	for (i = 0; i < next; i++)
-		print("%d %d\n", best[i].x, best[i].y);
+		printf("%d %d\n", best[i].x, best[i].y);
 
 	return 0;
 }

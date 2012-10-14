@@ -9,20 +9,12 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("transform.in", "r"); out = fopen("transform.out", "w")
+	#define openFiles() freopen("transform.in", "r", stdin); freopen("transform.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
 
-FILE *in, *out;
-
-// USACO upload header
+// USACO upload macros
 
 #define MAXSIZE 10
 
@@ -37,9 +29,9 @@ int size;
 void readArr(char arr[MAXSIZE][MAXSIZE]){
 	int x, y;
 	for (y = 0; y < size; y++){
-		read("%*[ \n\r]");
+		scanf("%*[ \n\r]");
 		for (x = 0; x < size; x++){
-			read("%c", &arr[x][y]); 
+			scanf("%c", &arr[x][y]); 
 		}
 	}
 }
@@ -94,7 +86,7 @@ Point combine(int x, int y){
 
 int main(void){
 	openFiles();
-	read("%d", &size);
+	scanf("%d", &size);
 	readArr(before);
 	readArr(after);
 	int answer = 7;
@@ -107,6 +99,6 @@ int main(void){
 	else if (bfunc = rotate180, compare(combine) == 0) answer = 5;
 	else if (bfunc = rotate270, compare(combine) == 0) answer = 5;
 	else if (compare(doNothing) == 0) answer = 6;
-	print("%d\n", answer);
+	printf("%d\n", answer);
 	return 0;
 }

@@ -9,20 +9,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("ariprog.in", "r"); out = fopen("ariprog.out", "w")
-	#define getchar() fgetc(in)
-	#define putchar(c) fputc(c, out)
+	#define openFiles() freopen("ariprog.in", "r", stdin); freopen("ariprog.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -58,7 +48,7 @@ int main(void){
 	openFiles();
 
 	int maxM, wantedlength;
-	read("%d %d", &wantedlength, &maxM);
+	scanf("%d %d", &wantedlength, &maxM);
 
 	int i,j;
 	for (i = 0; i <= maxM; i++)
@@ -86,10 +76,10 @@ int main(void){
 	qsort(answers, nextAnswer, sizeof(answer), answerCmp);
 
 	for (i = 0; i < nextAnswer; i++)
-		print("%d %d\n", answers[i].start, answers[i].diff);
+		printf("%d %d\n", answers[i].start, answers[i].diff);
 
 	if (!nextAnswer)
-		print("NONE\n");
+		printf("NONE\n");
 
 	return 0;
 }

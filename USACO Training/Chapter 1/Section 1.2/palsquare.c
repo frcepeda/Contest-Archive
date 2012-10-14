@@ -10,18 +10,10 @@
 #define UPLOAD 1
 
 #if UPLOAD
-	#define read(...) fscanf(in, __VA_ARGS__)
-	#define print(...) fprintf(out, __VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), in);
-	#define openFiles() in = fopen("palsquare.in", "r"); out = fopen("palsquare.out", "w")
+	#define openFiles() freopen("palsquare.in", "r", stdin); freopen("palsquare.out", "w", stdout)
 #else
-	#define read(...) scanf(__VA_ARGS__)
-	#define print(...) printf(__VA_ARGS__)
-	#define getLine(buf) fgets(buf, sizeof(buf), stdin);
 	#define openFiles()
 #endif
-
-FILE *in, *out;
 
 // USACO upload macros
 
@@ -59,7 +51,7 @@ int main(void){
 	openFiles();
 
 	int base;
-	read("%d", &base);
+	scanf("%d", &base);
 
 	int i;
 	for (i = 1; i <= 300; i++){
@@ -67,7 +59,7 @@ int main(void){
 		if (isPalindrome(buf)){
 			changeToBase(i, base, buf2);
 			reverse(buf2);
-			print("%s %s\n", buf2, buf);
+			printf("%s %s\n", buf2, buf);
 		}
 	}
 	
