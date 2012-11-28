@@ -96,7 +96,7 @@ int main(void){
 		do {
 			type = getchar();
 		} while (type != '+' && type != '-' && type != '?');
-		
+
 		switch (type){
 			case '+':
 				scanf("%d", &a);
@@ -114,4 +114,3 @@ int main(void){
 
 	return 0;
 }
-
