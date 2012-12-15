@@ -55,8 +55,11 @@ int main(void){
 	qsort(list, N, sizeof(char *), strcmp_q);
 
 	for (i = 0; i < N; i++)
+		unsorted[i] = find(unsorted[i]);
+
+	for (i = 0; i < N; i++)
 		for (j = i+1; j < N; j++)
-			if (find(unsorted[i]) < find(unsorted[j]))
+			if (unsorted[i] < unsorted[j])
 				answer++;
 
 	printf("%d/%d\n", answer, N*(N-1)/2);

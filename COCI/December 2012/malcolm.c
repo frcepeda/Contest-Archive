@@ -5,7 +5,7 @@
 #define MAXK 21
 
 int N, K;
-int answer;
+unsigned long long int answer;
 int len[MAXN];
 int BIT[MAXN][MAXK];
 
@@ -41,7 +41,7 @@ int main(void){
 	for (i = 1; i <= N; i++)
 		answer += query(min(i+K, N), len[i]) - query(i, len[i]);
 
-	printf("%d\n", answer);
+	printf("%llu\n", answer);
 
 	return 0;
 }
