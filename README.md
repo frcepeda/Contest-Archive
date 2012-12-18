@@ -1,4 +1,4 @@
-This is a collection of (nearly) all of the solutions I've written for programming contests.
+This is a collection of (nearly) all the solutions I've written for programming contests.
 
 Many of them will not award you the full points for the problem, though!
 
