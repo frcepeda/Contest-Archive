@@ -1,0 +1,1 @@
+../IOI 2013/Guanajuato/Día 2/SQRBR.c
