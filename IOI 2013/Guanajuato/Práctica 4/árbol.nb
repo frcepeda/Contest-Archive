@@ -1,0 +1,297 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     11852,        288]
+NotebookOptionsPosition[     11503,        270]
+NotebookOutlinePosition[     11879,        287]
+CellTagsIndexPosition[     11836,        284]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"dp", "[", 
+     RowBox[{"n", ",", "R", ",", "V", ",", "A"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"n", ",", "10"}], "}"}], ",", "1", ",", "10", ",", "1", ",", 
+      RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"R", ",", "50"}], "}"}], ",", "0", ",", "50", ",", "1", ",", 
+      RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"V", ",", "50"}], "}"}], ",", "0", ",", "50", ",", "1", ",", 
+      RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"A", ",", "50"}], "}"}], ",", "0", ",", "50", ",", "1", ",", 
+      RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Initialization", "\[RuleDelayed]", 
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"NonNegInt", "[", "n_", "]"}], " ", ":=", " ", 
+        RowBox[{
+         RowBox[{"IntegerQ", "[", "n", "]"}], " ", "&&", " ", 
+         RowBox[{"n", "\[GreaterEqual]", "0"}]}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"dp", "[", "___", "]"}], " ", ":=", " ", "0"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"dp", "[", 
+         RowBox[{"0", ",", 
+          RowBox[{"_", "?", "NonNegInt"}], ",", 
+          RowBox[{"_", "?", "NonNegInt"}], ",", 
+          RowBox[{"_", "?", "NonNegInt"}]}], "]"}], " ", ":=", " ", "1"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"dp", "[", 
+         RowBox[{
+          RowBox[{"n_", "?", "NonNegInt"}], ",", 
+          RowBox[{"r_", "?", "NonNegInt"}], ",", 
+          RowBox[{"v_", "?", "NonNegInt"}], ",", 
+          RowBox[{"a_", "?", "NonNegInt"}]}], "]"}], " ", ":=", " ", 
+        RowBox[{
+         RowBox[{"dp", "[", 
+          RowBox[{"n", ",", "r", ",", "v", ",", "a"}], "]"}], " ", "=", " ", 
+         "\[IndentingNewLine]", 
+         RowBox[{"Total", "[", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"dp", "[", 
+             RowBox[{
+              RowBox[{"n", "-", "1"}], ",", 
+              RowBox[{"r", "-", "n"}], ",", "v", ",", "a"}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"dp", "[", 
+             RowBox[{
+              RowBox[{"n", "-", "1"}], ",", "r", ",", 
+              RowBox[{"v", "-", "n"}], ",", "a"}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"dp", "[", 
+             RowBox[{
+              RowBox[{"n", "-", "1"}], ",", "r", ",", "v", ",", 
+              RowBox[{"a", "-", "n"}]}], "]"}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"dp", "[", 
+              RowBox[{
+               RowBox[{"n", "-", "1"}], ",", 
+               RowBox[{"r", "-", 
+                RowBox[{"n", "/", "2"}]}], ",", 
+               RowBox[{"v", "-", 
+                RowBox[{"n", "/", "2"}]}], ",", "a"}], "]"}], " ", "*", " ", 
+             RowBox[{"Binomial", "[", 
+              RowBox[{"n", ",", 
+               RowBox[{"n", "/", "2"}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"dp", "[", 
+              RowBox[{
+               RowBox[{"n", "-", "1"}], ",", "r", ",", 
+               RowBox[{"v", "-", 
+                RowBox[{"n", "/", "2"}]}], ",", 
+               RowBox[{"a", "-", 
+                RowBox[{"n", "/", "2"}]}]}], "]"}], " ", "*", " ", 
+             RowBox[{"Binomial", "[", 
+              RowBox[{"n", ",", 
+               RowBox[{"n", "/", "2"}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"dp", "[", 
+              RowBox[{
+               RowBox[{"n", "-", "1"}], ",", 
+               RowBox[{"r", "-", 
+                RowBox[{"n", "/", "2"}]}], ",", "v", ",", 
+               RowBox[{"a", "-", 
+                RowBox[{"n", "/", "2"}]}]}], "]"}], " ", "*", " ", 
+             RowBox[{"Binomial", "[", 
+              RowBox[{"n", ",", 
+               RowBox[{"n", "/", "2"}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"dp", "[", 
+              RowBox[{
+               RowBox[{"n", "-", "1"}], ",", 
+               RowBox[{"r", "-", 
+                RowBox[{"n", "/", "3"}]}], ",", 
+               RowBox[{"v", "-", 
+                RowBox[{"n", "/", "3"}]}], ",", 
+               RowBox[{"a", "-", 
+                RowBox[{"n", "/", "3"}]}]}], "]"}], " ", "*", " ", 
+             RowBox[{"Binomial", "[", 
+              RowBox[{"n", ",", 
+               RowBox[{"n", "/", "3"}]}], "]"}], "*", 
+             RowBox[{"Binomial", "[", 
+              RowBox[{
+               RowBox[{"n", "*", 
+                RowBox[{"2", "/", "3"}]}], ",", 
+               RowBox[{"n", "/", "3"}]}], "]"}]}]}], "\[IndentingNewLine]", 
+           "}"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", ")"}]}]}], "]"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.568940916267816*^9, 3.5689409213394537`*^9}, {
+   3.568941217343882*^9, 3.568941260474127*^9}, {3.5689413032902117`*^9, 
+   3.5689413385890427`*^9}, {3.56894137049905*^9, 3.568941482478429*^9}, {
+   3.568941554470704*^9, 3.568941558388495*^9}, {3.5689416163210897`*^9, 
+   3.5689416399007263`*^9}, {3.568943688569724*^9, 3.568943715146483*^9}, {
+   3.5689437459567738`*^9, 3.5689437462357616`*^9}, {3.56894384994897*^9, 
+   3.568943856752034*^9}, 3.5689440416128483`*^9, {3.568944107796082*^9, 
+   3.568944109619969*^9}, {3.568944200165949*^9, 3.568944250667582*^9}, {
+   3.568944465433075*^9, 3.568944468070797*^9}, {3.5689445413840637`*^9, 
+   3.568944542811577*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`A$$ = 20, $CellContext`n$$ = 
+    8, $CellContext`R$$ = 1, $CellContext`V$$ = 15, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`n$$], 10}, 1, 10, 1}, {{
+       Hold[$CellContext`R$$], 50}, 0, 50, 1}, {{
+       Hold[$CellContext`V$$], 50}, 0, 50, 1}, {{
+       Hold[$CellContext`A$$], 50}, 0, 50, 1}}, Typeset`size$$ = {
+    49., {1., 9.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`n$2126$$ = 
+    0, $CellContext`R$2127$$ = 0, $CellContext`V$2128$$ = 
+    0, $CellContext`A$2129$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`A$$ = 50, $CellContext`n$$ = 
+        10, $CellContext`R$$ = 50, $CellContext`V$$ = 50}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`n$$, $CellContext`n$2126$$, 0], 
+        Hold[$CellContext`R$$, $CellContext`R$2127$$, 0], 
+        Hold[$CellContext`V$$, $CellContext`V$2128$$, 0], 
+        Hold[$CellContext`A$$, $CellContext`A$2129$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> $CellContext`dp[$CellContext`n$$, $CellContext`R$$, \
+$CellContext`V$$, $CellContext`A$$], 
+      "Specifications" :> {{{$CellContext`n$$, 10}, 1, 10, 1, Appearance -> 
+         "Labeled"}, {{$CellContext`R$$, 50}, 0, 50, 1, Appearance -> 
+         "Labeled"}, {{$CellContext`V$$, 50}, 0, 50, 1, Appearance -> 
+         "Labeled"}, {{$CellContext`A$$, 50}, 0, 50, 1, Appearance -> 
+         "Labeled"}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{286., {91., 96.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`NonNegInt[
+         Pattern[$CellContext`n, 
+          Blank[]]] := And[
+         IntegerQ[$CellContext`n], $CellContext`n >= 0]; $CellContext`dp[
+         BlankNullSequence[]] := 0; $CellContext`dp[0, 
+         PatternTest[
+          Blank[], $CellContext`NonNegInt], 
+         PatternTest[
+          Blank[], $CellContext`NonNegInt], 
+         PatternTest[
+          Blank[], $CellContext`NonNegInt]] := 1; $CellContext`dp[
+         PatternTest[
+          Pattern[$CellContext`n, 
+           Blank[]], $CellContext`NonNegInt], 
+         PatternTest[
+          Pattern[$CellContext`r, 
+           Blank[]], $CellContext`NonNegInt], 
+         PatternTest[
+          Pattern[$CellContext`v, 
+           Blank[]], $CellContext`NonNegInt], 
+         PatternTest[
+          Pattern[$CellContext`a, 
+           
+           Blank[]], $CellContext`NonNegInt]] := \
+($CellContext`dp[$CellContext`n, $CellContext`r, $CellContext`v, \
+$CellContext`a] = Total[{
+           $CellContext`dp[$CellContext`n - 
+            1, $CellContext`r - $CellContext`n, $CellContext`v, \
+$CellContext`a], 
+           $CellContext`dp[$CellContext`n - 
+            1, $CellContext`r, $CellContext`v - $CellContext`n, \
+$CellContext`a], 
+           $CellContext`dp[$CellContext`n - 
+            1, $CellContext`r, $CellContext`v, $CellContext`a - \
+$CellContext`n], $CellContext`dp[$CellContext`n - 
+             1, $CellContext`r - $CellContext`n/
+             2, $CellContext`v - $CellContext`n/2, $CellContext`a] 
+           Binomial[$CellContext`n, $CellContext`n/
+             2], $CellContext`dp[$CellContext`n - 
+             1, $CellContext`r, $CellContext`v - $CellContext`n/
+             2, $CellContext`a - $CellContext`n/2] 
+           Binomial[$CellContext`n, $CellContext`n/
+             2], $CellContext`dp[$CellContext`n - 
+             1, $CellContext`r - $CellContext`n/
+             2, $CellContext`v, $CellContext`a - $CellContext`n/2] 
+           Binomial[$CellContext`n, $CellContext`n/
+             2], ($CellContext`dp[$CellContext`n - 
+              1, $CellContext`r - $CellContext`n/
+              3, $CellContext`v - $CellContext`n/
+              3, $CellContext`a - $CellContext`n/3] 
+            Binomial[$CellContext`n, $CellContext`n/3]) 
+           Binomial[$CellContext`n (2/3), $CellContext`n/3]}]); Null); 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.568943749717519*^9, 3.568944007355002*^9, 3.568944110295752*^9, {
+   3.568944207116856*^9, 3.568944222727099*^9}, 3.568944255157473*^9, 
+   3.568944429152594*^9, 3.5689445456021433`*^9}]
+}, {2}]]
+},
+WindowSize->{871, 632},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+ShowSelection->True,
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
+2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 5971, 140, 369, "Input"],
+Cell[6553, 164, 4937, 103, 204, "Output"]
+}, {2}]]
+}
+]
+*)
+
+(* End of internal cache information *)
