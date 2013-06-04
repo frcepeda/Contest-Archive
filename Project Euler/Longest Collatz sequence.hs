@@ -1,10 +1,11 @@
 import Data.List
 
 collatz' :: Integer -> Integer -> Integer
-collatz' acc n
+collatz' acc' n
         | n == 1         = acc
-        | n `mod` 2 == 0 = collatz' (acc+1) (n `div` 2)
+        | even n         = collatz' (acc+1) (n `div` 2)
         | otherwise      = collatz' (acc+1) (3 * n + 1)
+	where acc = acc' `seq` acc'
 
 collatz :: Integer -> Integer
 collatz n = collatz' 0 n
