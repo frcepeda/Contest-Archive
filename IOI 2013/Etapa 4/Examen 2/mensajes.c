@@ -49,7 +49,7 @@ edge graph[MAXN*2];
 int start[MAXN], nextEdge = 1;
 int parent[MAXN];
 bool color[MAXN];
-int height[MAXN], maxHeight;
+int height[MAXN];
 
 int minIdx[MAXLG][MAXN*2];
 
@@ -177,9 +177,6 @@ int main(void){
 		scanf("%d %d", &parent[i], &c);
 		color[i] = !!c;
 		height[i] = height[parent[i]] + 1;
-
-		if (height[i] > maxHeight)
-			maxHeight = height[i];
 
 		addEdge(i,parent[i]);
 		addEdge(parent[i],i);
