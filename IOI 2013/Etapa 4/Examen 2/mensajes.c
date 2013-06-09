@@ -4,7 +4,7 @@
 
 #define MOD 1000000007
 #define MAXN 200010
-#define MAXLG 18
+#define MAXLG 20
 
 typedef struct {
 	int next, node;
@@ -31,24 +31,18 @@ int lg2(int a){
 	return ans;
 }
 
-pair exgcd(long long int a, long long int b){
-	if (b == 0){
-		pair ret = {1,0};
-		return ret;
-	} else {
-		long long int l = a / b;
-		long long int m = a % b;
-		pair p = exgcd(b, m);
-		pair r = {p.second, p.first - l * p.second};
-		return r;
-	}
-}
-
 long long int modMultInv(long long int x){
-	long long int thingy = exgcd(x, MOD).first;
-	while (thingy < 0)
-		thingy += MOD;
-	return thingy % MOD;
+	long long int ret = 1;
+	int exp = MOD - 2;
+
+	while (exp){
+		if (exp & 1)
+			ret = (ret * x) % MOD;
+		exp >>= 1;
+		x = (x * x) % MOD;
+	}
+
+	return ret;
 }
 
 edge graph[MAXN*2];
@@ -154,7 +148,7 @@ int query(int a, int b){
 
 	int LCA = lca(a,b);
 	long long int goingDown = down[a] - down[parent[LCA]];
-	long long int goingUp = up[b] - (up[LCA] * twoPower[height[b] - height[LCA]]);
+	long long int goingUp = up[b] - ((up[LCA] * twoPower[height[b] - height[LCA]]) % MOD);
 
 	while (goingDown < 0)
 		goingDown += MOD;
