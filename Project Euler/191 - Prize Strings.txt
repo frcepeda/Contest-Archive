@@ -1,0 +1,8 @@
+Evaluate:
+
+Total[{1,0,0,0,0,0}*{{1,1,0,1,0,0},{1,0,1,1,0,0},{1,0,0,1,0,0},{0,0,0,1,1,0},{0,0,0,1,0,1},{0,0,0,1,0,0}}^30]
+
+Consider a finite state machine with 6 states corresponding to having 0, 1,
+2 consecutive As and having or not used an L. Then it only remains to
+compute the number of paths with length 30, by raising the adjacency
+matrix of the state diagram to the 30th power and adding up the first row.
