@@ -37,7 +37,7 @@ bool parallel(vector a, vector b){
 
 point points[4];
 int len[4];
-bool right[4];
+bool right;
 
 bool angleCmp(const point &a, const point &b){
 	vector n = vec(points[0], a);
@@ -62,17 +62,16 @@ int main(void){
 		for (i = 0; i < 4; i++)
 			len[i] = dist(points[i], points[(i+1)%4]);
 
-		for (i = 0; i < 4; i++)
-			right[i] = dotProd(vec(points[i], points[(i+3)%4]),
-					   vec(points[i], points[(i+1)%4])) == 0;
+		right = dotProd(vec(points[0], points[3]),
+		                vec(points[0], points[1])) == 0;
 
 		if (len[0] == len[1] && len[1] == len[2] && len[2] == len[3]){
-			if (right[0] || right[1] || right[2] || right[3])
+			if (right)
 				type = "Square";
 			else
 				type = "Rhombus";
 		} else if (len[0] == len[2] && len[1] == len[3]){
-			if (right[0] || right[1] || right[2] || right[3])
+			if (right)
 				type = "Rectangle";
 			else
 				type = "Parallelogram";
