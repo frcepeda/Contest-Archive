@@ -1,2 +1,6 @@
 .DS_Store
 .*.swp
+*.bak
+*.hi
+*.o
+a.out*
