@@ -1,4 +1,4 @@
-// 100 points
+// 100/100 points
 #include <stdio.h>
 
 #define MAXN 55
