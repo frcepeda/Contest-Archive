@@ -1,3 +1,4 @@
+// Accepted
 #include <stdio.h>
 
 int H, U, D, F;

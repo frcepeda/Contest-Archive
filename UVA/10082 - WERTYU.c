@@ -1,3 +1,4 @@
+// Accepted
 #include <stdio.h>
 
 char *thingy = "`1234567890-=QWERTYUIOP[]\\ASDFGHJKL;'ZXCVBNM,./";

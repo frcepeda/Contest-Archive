@@ -1,3 +1,4 @@
+// Accepted
 #include <algorithm>
 #include <cstdio>
 

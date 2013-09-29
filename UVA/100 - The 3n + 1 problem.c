@@ -1,3 +1,4 @@
+// Accepted
 #include <stdio.h>
 
 #define MAXNUM 3000000
