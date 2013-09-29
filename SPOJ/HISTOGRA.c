@@ -1,3 +1,4 @@
+// Accepted
 #include <stdio.h>
 
 #define MAXN 100010

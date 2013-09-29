@@ -1,3 +1,4 @@
+// 100 points
 #include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>

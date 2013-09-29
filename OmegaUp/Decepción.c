@@ -1,3 +1,4 @@
+// 100 points
 #include <stdio.h>
 
 #define MAXN 15
@@ -13,13 +14,14 @@ towers so only m can be seen from one side, the answer we want is
 
 This is because the only thing that matters is the relative ordering of the
 towers, so we can simply count the ways n towers can be distributed, since
-all the heights are different. The problem is symmetric on the front and back,
-so we only need to define f.
+all the heights are different. The problem is symmetric on the front and
+back, so we only need to define f.
 
-Now, to compute f, we can reuse the same observation. When we place the tallest
-tower, any tower that we place after index i will be blocked from view. On the
-visible side, we must arrange the remaining towers so only m-1 are visible,
-and we can arrange the hidden side in any way we want. This gives us
+Now, to compute f, we can reuse the same observation. When we place the
+tallest tower, any tower that we place after index i will be blocked from
+view. On the visible side, we must arrange the remaining towers so only
+m-1 are visible, and we can arrange the hidden side in any way we want.
+This gives us
 
 f(0,0) = 1
 f(n,m)
@@ -32,14 +34,15 @@ This can be improved further by observing that f(n,m) corresponds to the
 unsigned Stirling numbers of the first kind, which can be computed in O(N^2)
 time.
 
-The unsigned Stirling numbers of the first kind count the number of permutations
-with n elements and k cycles. Consider a permutation with k cycles of the N
-buildings. Every cycle must have a maximum element, and we can sort the cycles
-in increasing order of their maximum element. This ensures that k buildings are
-visible. Since all the permutations with k cycles are being counted, every
-possible ordering with k visible buildings will be counted. This is because
-only one representation per cycle has exactly one visible building, namely the
-one that starts with the largest building.
+The unsigned Stirling numbers of the first kind count the number of
+permutations with n elements and k cycles. Consider a permutation with k
+cycles of the N buildings. Every cycle must have a maximum element, and we
+can sort the cycles in increasing order of their maximum element. This
+ensures that k buildings are visible. Since all the permutations with k
+cycles are being counted, every possible ordering with k visible buildings
+will be counted. This is because only one representation per cycle has
+exactly one visible building, namely the one that starts with the largest
+building.
 */
 
 int choose[MAXN][MAXN];

@@ -1,3 +1,4 @@
+// 100 points
 #include <stdio.h>
 
 #define MAXN 55
@@ -12,10 +13,10 @@ int main(void){
 	scanf("%s", str);
 
 	for (i = 0; i < N; i++)
-		A += (str[i] == 'B') == i % 2;
+		A += str[i] == 'B' == i % 2;
 
 	for (i = 0; i < N; i++)
-		B += (str[i] == 'B') == (i+1) % 2;
+		B += str[i] == 'B' == (i+1) % 2;
 
 	printf("%d\n", A < B ? A : B);
 
