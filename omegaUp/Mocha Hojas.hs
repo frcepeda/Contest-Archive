@@ -9,7 +9,7 @@ largestMult 0 _ = 0
 largestMult m a = (a `div` m) * m
 
 f g c n p
-   | deg == 0 = (c!n, 1) :: (Int,Int)
+   | deg == 0 = (c!n, 1)
    | otherwise = (deg * m, deg * l)
       where ch = [f g c x n | x <- g!n, x /= p]
             deg = length (g!n) - (if n /= 1 then 1 else 0)
