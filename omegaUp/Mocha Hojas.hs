@@ -1,3 +1,4 @@
+-- 100/100 points
 import Data.Array
 import Data.List
 import Control.Applicative
