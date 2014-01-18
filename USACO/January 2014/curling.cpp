@@ -56,6 +56,11 @@ int convexHull(pll *P, pll *H){
 bool inPoly(pll P, pll *H, int Hsiz){
 	int lo = 0, hi = Hsiz, mid;
 
+	if (Hsiz == 2)
+		return cross(H[0], P, H[1]) == 0 &&
+		       between(H[0].fst, P.fst, H[1].fst) &&
+		       between(H[0].snd, P.snd, H[1].snd);
+
 	while (hi - lo > 1){
 		mid = (lo + hi)/2;
 
@@ -65,11 +70,7 @@ bool inPoly(pll P, pll *H, int Hsiz){
 			lo = mid;
 	}
 
-	if (cross(H[0], H[lo], H[hi]) != 0)
-		return inTriangle(P, H[0], H[lo], H[hi]);
-	else
-		return between(H[lo].fst, P.fst, H[hi].fst) &&
-		       between(H[lo].snd, P.snd, H[hi].snd);
+	return inTriangle(P, H[0], H[lo], H[hi]);
 }
 
 int main(){
