@@ -13,15 +13,14 @@ f g c n p
    | otherwise = (deg * m, deg * l)
       where ch = [f g c x n | x <- g!n, x /= p]
             deg = length (g!n) - (if n /= 1 then 1 else 0)
-            (m,l) = foldl1' g ch
-                  where g (a,b) (n,m) = (largestMult l (min a n), l)
-                                           where l = lcm b m
+            l = foldl1' lcm (map snd ch)
+            m = largestMult l (minimum . map fst $ ch)
 
 main = do
 	n <- read <$> getLine
-	lCosts <- (map read . words <$> getLine)
-	oneWay <- (map (toTuple . map read . words) . lines <$> getContents)
+	lCosts <- map read . words <$> getLine
+	oneWay <- map (toTuple . map read . words) . lines <$> getContents
 	let edges = oneWay ++ map swap oneWay
 	let c = array (1,n) (zipWith (,) [1..] lCosts)
 	let g = accumArray (flip (:)) [] (1,n) edges
-	print $ sum lCosts -  fst (f g c 1 (-1))
+	print $ sum lCosts - fst (f g c 1 (-1))

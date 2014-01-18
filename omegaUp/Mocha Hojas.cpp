@@ -1,4 +1,3 @@
-// 100/100 points
 #include <cstdio>
 #include <cstdlib>
 #include <algorithm>
@@ -11,10 +10,11 @@ using namespace std;
 #define mp make_pair
 
 typedef long long ll;
+typedef pair<ll,ll> pll;
 
 pair<int,int> graph[MAXN*2];
 int start[MAXN], nextEdge = 1;
-int N, val[MAXN];
+int N, a[MAXN];
 ll total;
 
 void addEdge(int a, int b){
@@ -24,52 +24,48 @@ void addEdge(int a, int b){
 }
 
 ll lcm(ll a, ll b){
-	return a*b/__gcd(a,b);
+	return a*(b/__gcd(a,b));
 }
 
-pair<ll,ll> f(int n, int p){
-	int c = 0;
-
-	if (val[n])
-		return mp(val[n], 1);
+pll f(int node, int parent){
+	int k = 0;
+	
+	if (a[node])
+		return mp(a[node], 1);
 		
-	pair<ll,ll> a = mp(-1,0);
-	for (int i = start[n]; i; i = graph[i].snd){
-		if (graph[i].fst == p) continue;
-		c++;
+	ll minC = 1<<30;
+	ll lcmB = 1;
+	for (int i = start[node]; i; i = graph[i].snd){
+		if (graph[i].fst == parent) continue;
+		k++;
 		
-		if (a.fst == -1)
-			a = f(graph[i].fst, n);
-		else {
-			pair<ll,ll> b = f(graph[i].fst, n);
-			ll l = lcm(a.snd, b.snd);
-			ll m = min(a.fst, b.fst);
-			a = mp((m/l)*l, l);
-		}
+		pll r = f(graph[i].fst, node);
+		minC = min(minC, r.fst);
+		lcmB = lcm(lcmB, r.snd);
 	}
 	
-	if (a.fst == -1){
+	if (minC == 0){
 		printf("%lld\n", total);
 		exit(0);
 	}
 	
-	return mp(a.fst * c, a.snd * c);
+	return mp((minC / lcmB) * lcmB * k, lcmB * k);
 }
 
-int main(void) {
-	int i, a, b;
+int main() {
+	int i, x, y;
 	
 	scanf("%d", &N);
 	
 	for (i = 1; i <= N; i++){
-		scanf("%d", &val[i]);
-		total += val[i];
+		scanf("%d", &a[i]);
+		total += a[i];
 	}
 	
 	for (i = 1; i < N; i++){
-		scanf("%d %d", &a, &b);
-		addEdge(a,b);
-		addEdge(b,a);
+		scanf("%d %d", &x, &y);
+		addEdge(x,y);
+		addEdge(y,x);
 	}
 	
 	printf("%lld\n", total - f(1,-1).fst);
