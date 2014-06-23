@@ -1,0 +1,1 @@
+main = putStrLn . unlines . map ((\[a,b] -> if gcd a b == 1 then "SI" else "NO") . map (read :: String -> Int) . words) . tail . lines =<< getContents
