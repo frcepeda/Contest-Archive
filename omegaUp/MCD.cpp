@@ -4,15 +4,14 @@
 using namespace std;
 
 #define MAXLG 18
-#define MAXN 400010
+#define MAXN 400100
 
 int N;
 int st[MAXLG][MAXN];
+int lg[MAXN];
 
 int query(int a, int b){
-	int l;
-	for (l = 0; (1<<l) < b - a + 1; l++);
-	l = max(l-1, 0);
+	int l = lg[b - a + 1];
 	return __gcd(st[l][a], st[l][b - (1<<l) + 1]);
 }
 
@@ -27,6 +26,10 @@ int main(){
 	}
 	
 	N *= 2;
+
+	lg[1] = 0;
+	for (i = 2; i <= N; i++)
+		lg[i] = lg[i/2] + 1;
 
 	for (j = 1; j < MAXLG; j++)
 		for (i = 0; i < N; i++)
