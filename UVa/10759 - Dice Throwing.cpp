@@ -1,3 +1,11 @@
+// Accepted
+
+/*
+Just count the ways to throw the dice so the condition is satisfied.
+dp[n][x] is (first) the number of ways to throw n dice so their sum is x.
+After the second pass, it is the number of ways to throw n dice so their sum is at least x.
+*/
+
 #include <cstdio>
 #include <algorithm>
 
