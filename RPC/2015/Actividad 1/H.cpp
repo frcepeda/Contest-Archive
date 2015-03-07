@@ -1,3 +1,27 @@
+/*
+German Collegiate Programming Contest 2014: JuQueen
+
+This one took way longer to implement than I'd like to admit it did.
+It's a textbook segment tree with lazy propagation.
+
+In the code below, v[node] stores the updates that haven't been
+propagated below. s(n) takes a number and makes it 0 if it is negative
+or n if it is greater than n.
+
+While the problem isn't really complicated nor does it require
+a great deal of creativity, it took me quite a while to implement nonetheless.
+
+My takeaway from this horrible experience is
+
+**Always state explicitly the invariants that will hold
+at every step of the algorithm, no exceptions.**
+
+In this case, the minimum/maximum of a node shall always be s(min_[n] + v[n]),
+whenever the recursion has reached it.
+
+After I did that the implementation wasn't that hard at all. *facepalm*
+*/
+
 #include <cstdio>
 #include <algorithm>
 #include <cstring>
