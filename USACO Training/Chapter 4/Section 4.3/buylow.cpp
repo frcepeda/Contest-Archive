@@ -5,7 +5,6 @@
  */
 
 #include <algorithm>
-#include <map>
 #include <cstdio>
 #include <string>
 
@@ -27,7 +26,7 @@ typedef string ll;
 typedef pair<int,ll> pii;
 
 int N, a[maxn], b[maxn];
-map<int,ll> tree[4*maxn];
+pii tree[4*maxn];
 
 string add(string &a, string &b){
 	if (a.empty()) return b;
@@ -61,10 +60,8 @@ pii merge(pii a, pii b){
 pii query(int x, int y, int n = 0, int l = 0, int r = N-1){
 	if (y < l || r < x) return mp(0, "0");
 
-	if (x <= l && r <= y){
-		map<int,ll>::reverse_iterator it = tree[n].rbegin();
-		return it != tree[n].rend() ? (pii)*it : mp(0, (string)"0");
-	}
+	if (x <= l && r <= y)
+		return tree[n];
 
 	return merge(query(x, y, 2*n+1, l, (l+r)/2),
 	             query(x, y, 2*n+2, (l+r)/2+1, r));
@@ -73,7 +70,7 @@ pii query(int x, int y, int n = 0, int l = 0, int r = N-1){
 void update(int i, pii v, int n = 0, int l = 0, int r = N-1){
 	if (i < l || r < i) return;
 
-	tree[n][v.fst] = add(tree[n][v.fst], v.snd);
+	tree[n] = merge(tree[n], v);
 
 	if (l == r) return;
 
