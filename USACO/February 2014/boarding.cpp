@@ -1,3 +1,4 @@
+// WA 1/10
 #include <cstdio>
 #include <algorithm>
 
