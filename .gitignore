@@ -1,5 +1,6 @@
 Tmp
 .DS_Store
+.vscode
 .*.swp
 *.bak
 *.hi
