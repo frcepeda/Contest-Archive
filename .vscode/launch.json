@@ -2,11 +2,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python",
-            "type": "python",
+            "name": "g++ (.in)",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            "args": [
+                "<",
+                "${fileDirname}/${fileBasenameNoExtension}.in"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "g++ build active file",
         },
         {
             "name": "g++ (stdin)",
@@ -27,31 +43,13 @@
                 }
             ],
             "preLaunchTask": "g++ build active file",
-            "miDebuggerPath": "gdb"
         },
         {
-            "name": "g++ (test)",
-            "type": "cppdbg",
+            "name": "Python",
+            "type": "python",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [
-                "<",
-                "${fileDirname}/test"
-            ],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "g++ build active file",
-            "miDebuggerPath": "gdb"
+            "program": "${file}",
+            "console": "integratedTerminal"
         }
     ]
 }
