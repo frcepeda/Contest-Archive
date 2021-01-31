@@ -17,14 +17,8 @@ int f(int l, int r) {
 
     dp[l][r] = max(f(l+1,r), f(l,r-1));
 
-    for (int k = l; k < r; k++){
-        dp[l][r] = max(dp[l][r], f(l,k) + f(k,r));
-    }
-
     for (int k = l+1; k < r; k++){
-        if (adj[l][r]){
-            dp[l][r] = max(dp[l][r], f(l,k-1) + f(k+1,r) + 1);
-        }
+        dp[l][r] = max(dp[l][r], f(l,k) + f(k,r) + adj[l][r]);
     }
 
     return dp[l][r];
