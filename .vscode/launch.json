@@ -8,7 +8,7 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
                 "<",
-                "${fileDirname}/${fileBasenameNoExtension}.in"
+                "\"${fileDirname}/${fileBasenameNoExtension}.in\""
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -45,10 +45,14 @@
             "preLaunchTask": "g++ build active file",
         },
         {
-            "name": "Python",
+            "name": "Python (.in)",
             "type": "python",
             "request": "launch",
             "program": "${file}",
+            "args": [
+                "<",
+                "${fileDirname}/${fileBasenameNoExtension}.in"
+            ],
             "console": "integratedTerminal"
         }
     ]
