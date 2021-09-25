@@ -54,6 +54,17 @@
                 "${fileDirname}/${fileBasenameNoExtension}.in"
             ],
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Code Jam (interactive)",
+            "type": "",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                "<",
+                "${fileDirname}/${fileBasenameNoExtension}.in"
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }

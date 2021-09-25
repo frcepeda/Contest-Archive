@@ -6,7 +6,7 @@
 			"label": "g++ build active file",
 			"command": "g++",
 			"args": [
-				"--std=gnu++14",
+				"--std=gnu++17",
 				"-DDBG",
 				"-g",
 				"${file}",
