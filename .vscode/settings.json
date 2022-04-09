@@ -1,1 +1,5 @@
-123,125
+{
+    "files.associations": {
+        "ranges": "cpp"
+    }
+}
