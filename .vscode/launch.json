@@ -57,7 +57,7 @@
         },
         {
             "name": "Code Jam (interactive)",
-            "type": "",
+            "type": "node",
             "request": "launch",
             "program": "${file}",
             "args": [
